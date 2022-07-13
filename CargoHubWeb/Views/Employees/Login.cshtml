@@ -2,10 +2,10 @@
 @{
     ViewData["Title"] = "Login";
 }
-<form method="post">
-    <div class="p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-secondary">Login</h2>
+<form id="form_login" method="post">
+    <div class="p-3 mt-4" style="margin: 5%;">
+        <div class="row pb-2 text-center">
+            <h2 class="text-primary">Login</h2>
             <hr />
         </div>
         <div class="mb-3">
@@ -18,7 +18,27 @@
             <input asp-for="Password" type="password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 150px;">LOGIN</button>
+        <br />
+        <div class="text-center">
+            <button id="form_button" type="submit" class="btn btn-primary">LOGIN</button>
+        </div>
     </div>
 </form>
+
+<style>
+    #form_login {
+        width: 40%;
+        margin: auto;
+        margin-top: 5%;
+        border-radius: 30px;
+        box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+        -webkit-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+        -moz-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+    }
+
+    #form_button {
+        width: 70%;
+        margin: auto;
+    }
+</style>
 

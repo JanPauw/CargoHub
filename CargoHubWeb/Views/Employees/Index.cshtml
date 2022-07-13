@@ -2,16 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
-    var _Number = Accessor.HttpContext.Session.GetInt32("Number");
-    var _Password = Accessor.HttpContext.Session.GetString("Password");
 }
 
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
-    @_Number
-    @_Password
 </p>
 
 <table class="table">

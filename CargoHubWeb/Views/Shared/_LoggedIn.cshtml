@@ -1,17 +1,16 @@
 ﻿@{
-    var _Number = Accessor.HttpContext.Session.GetInt32("Number");
-    var _Password = Accessor.HttpContext.Session.GetString("Password");
-    string URL = Accessor.HttpContext.Request.Path;
+    var logged_in = Accessor.HttpContext.Session.GetString("logged_in");
 
+    string URL = Accessor.HttpContext.Request.Path;
     bool isLoginPage = URL == "/Employees/Login";
 
-    if (!isLoginPage && (_Number == null || _Password == null))
-    {
-        Context.Response.Redirect("/Employees/Login");
-    }
-
-    if (isLoginPage && (_Number != null || _Password != null))
+    if (isLoginPage && (logged_in == "true"))
     {
         Context.Response.Redirect("/Employees/Index");
+    }
+
+    if (!isLoginPage && (logged_in != "true"))
+    {
+        Context.Response.Redirect("/Employees/Login");
     }
 }

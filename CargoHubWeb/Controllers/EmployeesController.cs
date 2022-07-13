@@ -184,13 +184,19 @@ namespace CargoHubWeb.Controllers
             }
 
             //TODO: SET SESSION VARIABLES
-            HttpContext.Session.SetInt32("Number", Int32.Parse(Number.ToString()));
-            HttpContext.Session.SetString("Password", Password);
+            HttpContext.Session.SetInt32("Number", obj.Number);
+            HttpContext.Session.SetString("Password", obj.Password);
+            HttpContext.Session.SetString("Name", obj.Name.ToUpper());
+            HttpContext.Session.SetString("Role", obj.Role);
+            HttpContext.Session.SetString("logged_in", "true");
 
-            ViewBag.Number = HttpContext.Session.GetInt32("Number");
-            ViewBag.Password = HttpContext.Session.GetInt32("Password");
-            
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         //Register
