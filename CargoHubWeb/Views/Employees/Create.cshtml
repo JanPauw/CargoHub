@@ -4,18 +4,15 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Employee</h4>
+<h2 class="text-primary">Add Employee</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label hidden asp-for="Password" class="control-label"></label>
+                <input hidden asp-for="Password" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -24,17 +21,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
+                <select class="form-control" asp-for="Role">
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Driver">Driver</option>
+                    <option value="Service Manager">Service Manager</option>
+                    <option value="Timesheet Manager">Timesheet Manager</option>
+                    <option value="Trip/Usage Manager">Trip/Usage Manager</option>
+                </select>
                 <span asp-validation-for="Role" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 

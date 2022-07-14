@@ -57,15 +57,20 @@ namespace CargoHubWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Number,Password,Name,Role")] Employee employee)
+        public async Task<IActionResult> Create(string? Name, string? Role)
         {
+            Employee obj = new Employee();
+            obj.Name = Name;
+            obj.Role = Role;
+            obj.Password = "NeedToRegister";
+
             if (ModelState.IsValid)
             {
-                _db.Add(employee);
+                _db.Add(obj);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(obj);
         }
 
         // GET: Employees/Edit/5
@@ -175,15 +180,28 @@ namespace CargoHubWeb.Controllers
 
             if (obj == null)
             {
+                TempData["ErrorMessage"] = "Invalid Employee Number!";
+                return Login();
+            }
+
+            if (obj.Password == "NeedToRegister")
+            {
+                TempData["ErrorMessage"] = "Need to Register Employee Number!";
+                return Login();
+            }
+
+            if (Password == null || Password.Length < 8)
+            {
+                TempData["ErrorMessage"] = "Invalid Password!";
                 return Login();
             }
 
             if (obj.Password != Password)
             {
+                TempData["ErrorMessage"] = "Invalid Combination!";
                 return Login();
             }
 
-            //TODO: SET SESSION VARIABLES
             HttpContext.Session.SetInt32("Number", obj.Number);
             HttpContext.Session.SetString("Password", obj.Password);
             HttpContext.Session.SetString("Name", obj.Name.ToUpper());
@@ -203,6 +221,46 @@ namespace CargoHubWeb.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(int? Number, string? Password, string? ConfirmPassword)
+        {
+            var obj = _db.Employees.Find(Number);
+
+            if (obj == null)
+            {
+                TempData["ErrorMessage"] = "Invalid Employee Number! Try logging in.";
+                return Register();
+            }
+
+            if (Password != ConfirmPassword)
+            {
+                TempData["ErrorMessage"] = "Passwords do not match!";
+                return Register();
+            }
+
+            if (Password != null && Password.Length < 8)
+            {
+                TempData["ErrorMessage"] = "Passwords needs to be 8 characters!";
+                return Register();
+            }
+
+            if (obj.Password != "NeedToRegister")
+            {
+                TempData["ErrorMessage"] = "Employee already registered! Contact admin, to change your password if needed.";
+                return Register();
+            }
+
+            if (Password != null)
+            {
+                obj.Password = Password;
+            }
+
+            _db.Update(obj);
+            _db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }

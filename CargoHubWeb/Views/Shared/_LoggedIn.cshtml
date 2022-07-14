@@ -3,14 +3,21 @@
 
     string URL = Accessor.HttpContext.Request.Path;
     bool isLoginPage = URL == "/Employees/Login";
+    bool isRegisterPage = URL == "/Employees/Register";
 
-    if (isLoginPage && (logged_in == "true"))
+    if (logged_in == "true")
     {
-        Context.Response.Redirect("/Employees/Index");
+        if (isRegisterPage || isLoginPage)
+        {
+            Context.Response.Redirect("/Employees/Index");
+        }
     }
 
-    if (!isLoginPage && (logged_in != "true"))
+    if (logged_in != "true")
     {
-        Context.Response.Redirect("/Employees/Login");
+        if (!isRegisterPage && !isLoginPage)
+        {
+            Context.Response.Redirect("/Employees/Login");
+        }
     }
 }

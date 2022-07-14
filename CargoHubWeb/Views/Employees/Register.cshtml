@@ -1,7 +1,48 @@
-﻿
+﻿@model Employee
 @{
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
+<form id="form_register" method="post">
+    <div class="p-3 mt-4" style="margin: 5%;">
+        <div class="row pb-2 text-center">
+            <h2 class="text-primary">Register</h2>
+            <hr />
+            <span class="text-danger">@TempData["ErrorMessage"]</span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Number"></label>
+            <input asp-for="Number" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label>Confirm Password</label>
+            @Html.TextBox("ConfirmPassword", null, new {@class="form-control", type="password"})
+        </div>
+        <br />
+        <div class="text-center">
+            <a asp-controller="Employees" asp-action="Login" class="form_button btn btn-secondary">LOGIN</a>
+            <button type="submit" class="form_button btn btn-primary">REGISTER</button>
+        </div>
+    </div>
+</form>
 
+<style>
+    #form_register {
+        width: 40%;
+        margin: auto;
+        margin-top: 5%;
+        border-radius: 30px;
+        box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+        -webkit-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+        -moz-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+    }
+
+    .form_button {
+        width: 45%;
+        margin: auto;
+    }
+</style>
