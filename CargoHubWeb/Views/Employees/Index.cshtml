@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<CargoHubWeb.Models.Employee>
+@using CargoHubWeb.Data;
 
 @{
     ViewData["Title"] = "Index";
+    Encrypt enc = new Encrypt();
 }
 
 <h1>Index</h1>
@@ -42,7 +44,7 @@
                     @Html.DisplayFor(modelItem => item.Role)
                 </td>
                 <td style="width: 15%;">
-                    @if (item.Password != "NeedToRegister")
+                    @if (item.Password != enc.EncryptString("???"))
                     {
                         <p class="text-primary">YES</p>
                     }

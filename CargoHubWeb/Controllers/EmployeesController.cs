@@ -59,10 +59,11 @@ namespace CargoHubWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(string? Name, string? Role)
         {
+            Encrypt enc = new Encrypt();
             Employee obj = new Employee();
             obj.Name = Name;
             obj.Role = Role;
-            obj.Password = "NeedToRegister";
+            obj.Password = enc.EncryptString("???");
 
             if (ModelState.IsValid)
             {
@@ -176,6 +177,7 @@ namespace CargoHubWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Login(int? Number, string? Password)
         {
+            Encrypt enc = new Encrypt();
             var obj = _db.Employees.Find(Number);
 
             if (obj == null)
@@ -184,7 +186,7 @@ namespace CargoHubWeb.Controllers
                 return Login();
             }
 
-            if (obj.Password == "NeedToRegister")
+            if (obj.Password == enc.EncryptString("???"))
             {
                 TempData["ErrorMessage"] = "Need to Register Employee Number!";
                 return Login();
@@ -196,7 +198,7 @@ namespace CargoHubWeb.Controllers
                 return Login();
             }
 
-            if (obj.Password != Password)
+            if (obj.Password != enc.EncryptString(Password))
             {
                 TempData["ErrorMessage"] = "Invalid Combination!";
                 return Login();
@@ -227,6 +229,7 @@ namespace CargoHubWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Register(int? Number, string? Password, string? ConfirmPassword)
         {
+            Encrypt enc = new Encrypt();
             var obj = _db.Employees.Find(Number);
 
             if (obj == null)
@@ -247,7 +250,7 @@ namespace CargoHubWeb.Controllers
                 return Register();
             }
 
-            if (obj.Password != "NeedToRegister")
+            if (obj.Password != enc.EncryptString("???"))
             {
                 TempData["ErrorMessage"] = "Employee already registered! Contact admin, to change your password if needed.";
                 return Register();
@@ -255,7 +258,7 @@ namespace CargoHubWeb.Controllers
 
             if (Password != null)
             {
-                obj.Password = Password;
+                obj.Password = enc.EncryptString(Password);
             }
 
             _db.Update(obj);
