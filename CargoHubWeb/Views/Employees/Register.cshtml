@@ -7,7 +7,6 @@
     <div class="p-3 mt-4" style="margin: 5%;">
         <div class="row pb-2 text-center">
             <h2 class="text-primary">Register</h2>
-            <hr />
             <span class="text-danger">@TempData["ErrorMessage"]</span>
         </div>
         <div class="mb-3">
@@ -24,21 +23,25 @@
         </div>
         <br />
         <div class="text-center">
-            <a asp-controller="Employees" asp-action="Login" class="form_button btn btn-secondary">LOGIN</a>
             <button type="submit" class="form_button btn btn-primary">REGISTER</button>
         </div>
     </div>
 </form>
 
 <style>
+    #nav_Register {
+        color: #f1f1f1 !important;
+        background-color: #375A7F;
+    }
+
     #form_register {
         width: 40%;
         margin: auto;
-        margin-top: 5%;
-        border-radius: 30px;
-        box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
-        -webkit-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
-        -moz-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);
+        margin-top: 13%;
+        /*border-radius: 30px;*/
+        /*box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);*/
+        /*-webkit-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);*/
+        /*-moz-box-shadow: 0px 0px 49px 10px rgba(0,0,0,0.51);*/
     }
 
     .form_button {

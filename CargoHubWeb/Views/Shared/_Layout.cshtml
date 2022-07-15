@@ -3,6 +3,8 @@
     var _Password = Accessor.HttpContext.Session.GetString("Password");
     var _LoggedIn = Accessor.HttpContext.Session.GetString("logged_in");
     var _Name = Accessor.HttpContext.Session.GetString("Name");
+
+    bool loop = true;
 }
 
 <!DOCTYPE html>
@@ -18,63 +20,138 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">CargoHub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
-                        </li>
-                        @if (_LoggedIn == null || _LoggedIn == "false")
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Employees" asp-action="Login">Login</a>
-                            </li>
-                        }
-
-                        @if (_LoggedIn == "true")
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Welcome, @_Name</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-controller="Employees" asp-action="Logout">Log out</a>
-                                </div>
-                            </li>
-                        }
-
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
+    <header class="">
+        <div class="sidenav">
+            <div style="width: 100%; text-align: center;">
+                <img style="width: 70%;" src="~/logo.png" alt="alt" />
             </div>
-        </nav>
+            <hr />
+            @if (_LoggedIn == "true")
+            {
+                <div id="sn-p1">
+                    <a id="nav_Orders" href="#">Orders</a>
+                    <a id="nav_Customers" href="#">Customers</a>
+                    <a id="nav_Trucks" href="#">Trucks</a>
+                    <a id="nav_Drivers" href="#">Drivers</a>
+                    <a id="nav_Timesheet" href="#">Timesheet</a>
+                    <a id="nav_Reporting" href="#">Reporting</a>
+                </div>
+            }
+
+            <div id="sn-p2">
+                @if (_LoggedIn == null || _LoggedIn == "false")
+                {
+                    <a id="nav_Login" class="nav-link" asp-area="" asp-controller="Employees" asp-action="Login">Login</a>
+                    <a id="nav_Register" class="nav-link" asp-area="" asp-controller="Employees" asp-action="Register">Register</a>
+                }
+
+                @if (_LoggedIn == "true")
+                {
+                    <a id="nav_Employees" class="nav-link" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
+                    <a id="nav_Account" href="#">Account</a>
+                    <a id="nav_Logout" asp-controller="Employees" asp-action="Logout">Log out</a>
+                }
+            </div>
+
+
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <partial name="_LoggedIn" />
-            @RenderBody()
-        </main>
+    <div id="main-content">
+        <div>
+            <main style="width: 100% !important;" role="main" class="pb-3">
+                <partial name="_LoggedIn" />
+                @RenderBody()
+            </main>
+        </div>
+        <footer style="width: 85% !important; " class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2022 - CargoHubWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - CargoHubWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<style>
+    * {
+        font-family: Arial;
+    }
+
+    h1 {
+        text-decoration: underline;
+        text-decoration-color: #375A7F;
+    }
+
+    /* The sidebar menu */
+    .sidenav {
+        height: 100%; /* Full-height: remove this if you want "auto" height */
+        width: 15%; /* Set the width of the sidebar */
+        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #303030; /* Black */
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 20px;
+    }
+
+        /* The navigation menu links */
+        .sidenav a {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
+
+            /* When you mouse over the navigation links, change their color */
+            .sidenav a:hover {
+                color: #f1f1f1 !important;
+                background-color: #375A7F;
+            }
+
+    #sn-p1 {
+        height: 55%;
+    }
+
+    #sn-p2 {
+    }
+
+    #nav_Logout:hover {
+        background-color: #E74C3C !important;
+    }
+
+
+    /* Style page content */
+    .main {
+        margin-left: 160px; /* Same as the width of the sidebar */
+        padding: 0px 10px;
+    }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+    @@media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+    }
+
+    #main-content {
+        width: 85% !important;
+        margin-left: 15%;
+    }
+
+    main {
+        padding: 1%;
+    }
+
+    
+</style>
