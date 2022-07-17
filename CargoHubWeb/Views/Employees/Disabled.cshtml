@@ -2,7 +2,7 @@
 @using CargoHubWeb.Data;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Disable Employees";
     Encrypt enc = new Encrypt();
 }
 <div style="height: 2vh;">@*Spacer*@</div>
@@ -10,12 +10,11 @@
 <div id="div_Employees">
     <div id="div_Top">
         <h1>Employees</h1>
-        <div style="width: 100%; text-align: right;">
-            <a class="btn btn-primary" asp-action="Create">
-                <i class="bi bi-person-plus-fill"></i> &nbsp; Add Employee
+        <div style="width: 100%; text-align: left;">
+            <a class="btn btn-primary" asp-action="Index">
+                <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
             </a>
         </div>
-
         <table id="table_Head">
             <thead>
                 <tr>
@@ -41,7 +40,7 @@
     <div id="div_Bottom">
         <table id="table_Body">
             <tbody>
-                @foreach (var item in Model.Where(x => x.Role != "Disabled"))
+                @foreach (var item in Model.Where(x => x.Role == "Disabled"))
                 {
                     <tr>
                         <td>
@@ -64,18 +63,18 @@
                             }
                         </td>
                         <td style="padding: 0 !important; text-align: left;">
-                            <span>
-                                <form method="post" asp-action="Index">
-                                    @Html.Hidden("EmpNumber", @item.Number)
-                                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
-                                        <i class="bi bi-info-circle"></i> &nbsp; Details
-                                    </a> &nbsp;
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bi bi-slash-circle"></i> &nbsp; Disable
-                                    </button>
-                                </form>
-                            </span>
-
+                            @*<a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Number">
+                        <i class="bi bi-pencil-square"></i> &nbsp; Edit
+                        </a> &nbsp;*@
+                            <form method="post" asp-action="Index">
+                                @Html.Hidden("EmpNumber", @item.Number)
+                                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
+                                    <i class="bi bi-info-circle"></i> &nbsp; Details
+                                </a> &nbsp;
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle"></i> &nbsp; Enable
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }
@@ -83,21 +82,6 @@
         </table>
     </div>
     <br />
-    <div id="div_Disabled_Employees">
-        <table>
-            <tr>
-                <th>
-                    Disabled Employees
-                </th>
-                <th>
-                    <a style="float: right; margin-right: 3%;" class="btn btn-primary" asp-controller="Employees" asp-action="Disabled">
-                        View &nbsp; <i class="bi bi-arrow-right-circle"></i>
-                    </a>
-                </th>
-            </tr>
-        </table>
-    </div>
-
 </div>
 
 
@@ -118,6 +102,7 @@
 
         #div_Top a.btn {
             vertical-align: top !important;
+            float: left;
             margin: 1%;
             padding: 1% !important;
             font-weight: bold;
@@ -159,21 +144,5 @@
 
         #table_Body tr:nth-child(odd) {
             background-color: #36393E;
-        }
-
-    #div_Disabled_Employees {
-        border-radius: 15px;
-        overflow: hidden;
-        border: solid 2px #DB133C;
-    }
-
-        #div_Disabled_Employees table {
-            width: 100%;
-        }
-
-
-        #div_Disabled_Employees th {
-            color: #fff;
-            padding: 1%;
         }
 </style>

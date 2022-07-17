@@ -28,6 +28,26 @@ namespace CargoHubWeb.Controllers
                         Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
         }
 
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Index(int? EmpNumber)
+        {
+            if (EmpNumber != null)
+            {
+                var obj = _db.Employees.Find(EmpNumber);
+
+                if (obj != null)
+                {
+                    obj.Role = "Disabled";
+                    _db.Employees.Update(obj);
+                }
+
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -264,6 +284,13 @@ namespace CargoHubWeb.Controllers
             _db.Update(obj);
             _db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Disabled()
+        {
+            return _db.Employees != null ?
+                        View(await _db.Employees.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
         }
     }
 }
