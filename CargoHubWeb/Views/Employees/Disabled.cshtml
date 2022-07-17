@@ -63,18 +63,13 @@
                             }
                         </td>
                         <td style="padding: 0 !important; text-align: left;">
-                            @*<a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Number">
-                        <i class="bi bi-pencil-square"></i> &nbsp; Edit
-                        </a> &nbsp;*@
-                            <form method="post" asp-action="Index">
-                                @Html.Hidden("EmpNumber", @item.Number)
-                                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
-                                    <i class="bi bi-info-circle"></i> &nbsp; Details
-                                </a> &nbsp;
-                                <button type="submit" class="btn btn-success">
-                                    <i class="bi bi-check-circle"></i> &nbsp; Enable
-                                </button>
-                            </form>
+                            @Html.Hidden("EmpNumber", @item.Number)
+                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
+                                <i class="bi bi-info-circle"></i> &nbsp; Details
+                            </a> &nbsp;
+                            <a class="btn btn-success" asp-action="Enable" asp-route-id="@item.Number">
+                                <i class="bi bi-check-circle"></i> &nbsp; Enable
+                            </a>
                         </td>
                     </tr>
                 }

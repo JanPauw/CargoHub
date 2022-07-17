@@ -28,6 +28,7 @@ namespace CargoHubWeb.Controllers
                         Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
         }
 
+        //Disabling an Employee Account
         [HttpPost]
         [AutoValidateAntiforgeryToken]
         public IActionResult Index(int? EmpNumber)
@@ -212,6 +213,12 @@ namespace CargoHubWeb.Controllers
                 return Login();
             }
 
+            if (obj.Role == "Disabled")
+            {
+                TempData["ErrorMessage"] = "Account Disabled! Contact Admin if you think this is a mistake!";
+                return Login();
+            }
+
             if (Password == null || Password.Length < 8)
             {
                 TempData["ErrorMessage"] = "Invalid Password!";
@@ -291,6 +298,43 @@ namespace CargoHubWeb.Controllers
             return _db.Employees != null ?
                         View(await _db.Employees.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+        }
+
+        // GET: Employees/Enable/5
+        public async Task<IActionResult> Enable(int? id)
+        {
+            if (id == null || _db.Employees == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _db.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return View(employee);
+        }
+
+        //Enabling an Employee Account
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult EnablePOST(int? Number, string? Role)
+        {
+            if (Number != null && Role != null)
+            {
+                var obj = _db.Employees.Find(Number);
+
+                if (obj != null)
+                {
+                    obj.Role = Role;
+                    _db.Employees.Update(obj);
+                }
+
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Disabled");
         }
     }
 }
