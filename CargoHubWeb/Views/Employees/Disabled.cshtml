@@ -64,9 +64,6 @@
                         </td>
                         <td style="padding: 0 !important; text-align: left;">
                             @Html.Hidden("EmpNumber", @item.Number)
-                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
-                                <i class="bi bi-info-circle"></i> &nbsp; Details
-                            </a> &nbsp;
                             <a class="btn btn-success" asp-action="Enable" asp-route-id="@item.Number">
                                 <i class="bi bi-check-circle"></i> &nbsp; Enable
                             </a>

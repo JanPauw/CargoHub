@@ -1,41 +1,131 @@
-﻿@model CargoHubWeb.Models.Employee
+﻿@using CargoHubWeb.Data
+@model CargoHubWeb.Models.Employee
 
 @{
     ViewData["Title"] = "Edit";
+    Encrypt enc = new Encrypt();
 }
 
-<h1>Edit</h1>
-
-<h4>Employee</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Number" />
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Role" class="control-label"></label>
-                <input asp-for="Role" class="form-control" />
-                <span asp-validation-for="Role" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div style="height: 2vh;">@*Spacer*@</div>
+<div id="div_Edit">
+    <h1>Edit: @Model.Name</h1>
+    <div style="width: 100%; text-align: left;">
+        <a id="btn_Back" class="btn btn-primary" asp-action="Details" asp-route-id="@Model.Number">
+            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+        </a>
     </div>
+    <form id="form_Edit" method="post" asp-action="Edit">
+        <table id="table_Head">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Number)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Select a Role
+                    </th>
+                    <th>
+                        Registered
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+        <table id="table_Body">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelModel => Model.Number)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(modelModel => Model.Name, new {@class="form-control"})
+                    </td>
+                    <td>
+                        <select class="form-control" asp-for="Role">
+                            <option value="Admin">Admin</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Driver">Driver</option>
+                            <option value="Service Manager">Service Manager</option>
+                            <option value="Timesheet Manager">Timesheet Manager</option>
+                            <option value="Trip/Usage Manager">Trip/Usage Manager</option>
+                        </select>
+                    </td>
+                    <td style="font-weight: bold;">
+                        @if (Model.Password != enc.EncryptString("???"))
+                                    {
+                        <span style="color: #7289DA;">YES</span>
+                                    }
+                                    else
+{
+                        <span style="color: #DB133C;">NO</span>
+}
+                    </td>
+                    <td style="text-align: center">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> &nbsp; Save Changes
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input asp-for="Number" hidden />
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+    #nav_Employees {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #div_Edit {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+        #div_Edit #btn_Back {
+            vertical-align: top !important;
+            float: left;
+            margin: 1%;
+            padding: 1% !important;
+            font-weight: bold;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 20% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 1%;
+        }
+
+    #table_Body {
+        width: 100%;
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+    }
+
+        #table_Body td {
+            width: 20% !important;
+            padding: 1%;
+        }
+
+        #table_Body tr:nth-child(even) {
+            background-color: #282B30;
+        }
+
+        #table_Body tr:nth-child(odd) {
+            background-color: #36393E;
+        }
+</style>
 

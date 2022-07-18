@@ -10,10 +10,24 @@
 <div id="div_Employees">
     <div id="div_Top">
         <h1>Employees</h1>
-        <div style="width: 100%; text-align: right;">
-            <a class="btn btn-primary" asp-action="Create">
+        <div style="width: 100%;">
+            <a style="float: left;" class="btn btn-primary" asp-action="Create">
                 <i class="bi bi-person-plus-fill"></i> &nbsp; Add Employee
             </a>
+            <form id="form_Search" style="float: right;" method="post">
+                <select class="form-control" id="SearchOption" name="SearchOption">
+                    <option value="Number">Employee Number</option>
+                    <option value="Name">Name</option>
+                    <option value="Role">Role</option>
+                </select>
+                <input class="form-control" id="SearchInput" name="SearchInput" placeholder="Search..." />
+                <button type="submit" class="btn btn-primary form-control">
+                    <i class="bi bi-search"></i>
+                </button>
+                <a class="btn btn-primary form-control">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+            </form>
         </div>
 
         <table id="table_Head">
@@ -32,7 +46,7 @@
                         Registered
                     </th>
                     <th>
-                        &nbsp;
+
                     </th>
                 </tr>
             </thead>
@@ -121,6 +135,28 @@
             margin: 1%;
             padding: 1% !important;
             font-weight: bold;
+        }
+
+    #form_Search {
+        margin: 1%;
+        padding: 1%;
+        width: 50%;
+        text-align: right;
+    }
+
+        #form_Search .form-control {
+            display: inline-block;
+            width: 25%;
+        }
+
+        #form_Search button, #form_Search a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+        #form_Search a {
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
     #table_Head {

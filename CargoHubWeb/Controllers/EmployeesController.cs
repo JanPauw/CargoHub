@@ -116,23 +116,27 @@ namespace CargoHubWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Number,Password,Name,Role")] Employee employee)
+        public async Task<IActionResult> Edit(int? Number, string? Name, string? Role)
         {
-            if (id != employee.Number)
+            if (Number == null)
             {
                 return NotFound();
             }
+
+            var obj = _db.Employees.Find(Number);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _db.Update(employee);
+                    obj.Name = Name;
+                    obj.Role = Role;
+                    _db.Employees.Update(obj);
                     await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Number))
+                    if (!EmployeeExists(obj.Number))
                     {
                         return NotFound();
                     }
@@ -143,7 +147,7 @@ namespace CargoHubWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(obj);
         }
 
         // GET: Employees/Delete/5
