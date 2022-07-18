@@ -4,28 +4,42 @@
 }
 
 <form id="form_register" method="post">
-    <div class="p-3 mt-4" style="margin: 5%;">
-        <div class="row pb-2 text-center">
-            <h2 class="text-primary">Register</h2>
-            <span class="text-danger">@TempData["ErrorMessage"]</span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Number"></label>
-            <input asp-for="Number" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" type="password" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label>Confirm Password</label>
-            @Html.TextBox("ConfirmPassword", null, new {@class="form-control", type="password"})
-        </div>
-        <br />
-        <div class="text-center">
-            <button type="submit" class="form_button btn btn-primary">REGISTER</button>
-        </div>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th class="h3">
+                    Register
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Number"></label>
+                    <input asp-for="Number" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Confirm Password</label>
+                    @Html.TextBox("ConfirmPassword", null, new {@class="form-control", type="password"})
+                </td>
+            </tr>
+            <tr style="background-color: #36393E;">
+                <td style="text-align: right;">
+                    <button type="submit" class="form_button btn btn-primary">
+                        REGISTER
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </form>
 
 <style>
@@ -38,13 +52,33 @@
         width: 40%;
         margin: auto;
         margin-top: 13%;
-        border-radius: 30px;
-        box-shadow: 0px 0px 49px 5px rgba(0,0,0,0.5);
-        background-color: #303030;
     }
 
-    .form_button {
-        width: 45%;
-        margin: auto;
-    }
+        #form_register table {
+            width: 100%;
+            border-radius: 15px 15px 15px 15px;
+            overflow: hidden;
+        }
+
+        #form_register th {
+            text-align: center;
+            width: 20% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 2.5%;
+        }
+
+        #form_register td {
+            width: 100% !important;
+            padding: 2.5%;
+        }
+
+            #form_register td button {
+                font-weight: bold;
+                width: 33% !important;
+            }
+
+        #form_register tr {
+            background-color: #282B30;
+        }
 </style>
