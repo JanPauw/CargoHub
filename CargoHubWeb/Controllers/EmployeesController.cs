@@ -21,8 +21,31 @@ namespace CargoHubWeb.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? SearchOption, string? SearchInput)
         {
+            if (SearchOption == null || SearchInput == null)
+            {
+                return _db.Employees != null ?
+                        View(await _db.Employees.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+            }
+
+            switch (SearchOption)
+            {
+                case "Number":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Number.ToString().Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+                case "Name":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Name.Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+                case "Role":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Role.Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+            }
+
             return _db.Employees != null ?
                         View(await _db.Employees.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
@@ -297,8 +320,31 @@ namespace CargoHubWeb.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Disabled()
+        public async Task<IActionResult> Disabled(string? SearchOption, string? SearchInput)
         {
+            if (SearchOption == null || SearchInput == null)
+            {
+                return _db.Employees != null ?
+                        View(await _db.Employees.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+            }
+
+            switch (SearchOption)
+            {
+                case "Number":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Number.ToString().Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+                case "Name":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Name.Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+                case "Role":
+                    return _db.Employees != null ?
+                        View(await _db.Employees.Where(x => x.Role.Contains(SearchInput)).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+            }
+
             return _db.Employees != null ?
                         View(await _db.Employees.ToListAsync()) :
                         Problem("Entity set 'ApplicationDbContext.Employees'  is null.");

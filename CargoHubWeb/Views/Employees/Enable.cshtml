@@ -9,11 +9,21 @@
 <div style="height: 2vh;">@*Spacer*@</div>
 <div id="div_Enable">
     <h1>Enable: @Model.Name</h1>
-    <div style="width: 100%; text-align: left;">
-        <a id="btn_Back" class="btn btn-primary" asp-action="Disabled">
-            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
-        </a>
-    </div>
+    <form id="form_Back" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    <a id="btn_Back" class="btn btn-primary" asp-action="Disabled">
+                        <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
     <form id="form_Enable" method="post" asp-action="EnablePOST">
         <table id="table_Head">
             <thead>
@@ -81,6 +91,18 @@
         color: #fff;
         background-color: #7289DA;
     }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
 
     #div_Enable {
         width: 75% !important;

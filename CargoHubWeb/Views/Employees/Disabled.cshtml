@@ -10,11 +10,37 @@
 <div id="div_Employees">
     <div id="div_Top">
         <h1>Employees</h1>
-        <div style="width: 100%; text-align: left;">
-            <a class="btn btn-primary" asp-action="Index">
-                <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
-            </a>
-        </div>
+        <form id="form_Back" method="get" asp-action="Disabled">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 60%;">
+                        <a id="btn_Back" class="btn btn-primary" asp-action="Index">
+                            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                        </a>
+                    </td>
+                    <td>
+                        <select class="form-control" id="SearchOption" name="SearchOption">
+                            <option value="Number">Employee Number</option>
+                            <option value="Name">Name</option>
+                            <option value="Role">Role</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control" id="SearchInput" name="SearchInput" placeholder="Search..." />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary form-control">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <a asp-action="Disabled" class="btn btn-warning form-control">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </form>
         <table id="table_Head">
             <thead>
                 <tr>
@@ -64,6 +90,9 @@
                         </td>
                         <td style="padding: 0 !important; text-align: left;">
                             @Html.Hidden("EmpNumber", @item.Number)
+                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
+                                <i class="bi bi-info-circle"></i> &nbsp; Details
+                            </a> &nbsp;
                             <a class="btn btn-success" asp-action="Enable" asp-route-id="@item.Number">
                                 <i class="bi bi-check-circle"></i> &nbsp; Enable
                             </a>
@@ -92,12 +121,23 @@
     #div_Top {
     }
 
-        #div_Top a.btn {
+        #div_Top #btn_Back {
             vertical-align: top !important;
-            float: left;
-            margin: 1%;
+            margin: 1% !important;
             padding: 1% !important;
             font-weight: bold;
+        }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
         }
 
     #table_Head {

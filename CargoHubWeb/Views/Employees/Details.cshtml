@@ -9,11 +9,30 @@
 <div style="height: 2vh;">@*Spacer*@</div>
 <div id="div_Details">
     <h1>Details: @Model.Name</h1>
-    <div style="width: 100%; text-align: left;">
-        <a id="btn_Back" class="btn btn-primary" asp-action="Index">
-            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
-        </a>
-    </div>
+    <form id="form_Back" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    @if (Model.Role == "Disabled")
+                    {
+                        <a id="btn_Back" class="btn btn-primary" asp-action="Disabled">
+                            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                        </a>
+                    }
+                    else
+                    {
+                        <a id="btn_Back" class="btn btn-primary" asp-action="Index">
+                            <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                        </a>
+                    }
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
     <table id="table_Head">
         <thead>
             <tr>
@@ -73,6 +92,18 @@
         color: #fff;
         background-color: #7289DA;
     }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
 
     #div_Details {
         width: 75% !important;
