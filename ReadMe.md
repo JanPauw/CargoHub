@@ -7,12 +7,6 @@ CargoHub is a tool used to track and keep record of deliveries, vehicles, employ
 <b>
   View Demo <a href="https://cargohubweb.azurewebsites.net">Here</a>
 </b>
-  
-<h2>Getting Started!</h2>
-<h3>Pre-requisites:</h3>
-<ul>
-  <li>The Class Library (Located: https://github.com/JanPauw/DevHub-ClassLib)</li>
-</ul>
 
 <h2>Screenshots</h2>
 <h3>Login</h3>
