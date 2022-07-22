@@ -1,0 +1,164 @@
+﻿@model CargoHubWeb.Models.Customer
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div style="height: 2vh;">@*Spacer*@</div>
+<div id="div_Create">
+    <h1>Add Customer</h1>
+    <form id="form_Back" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    <a id="btn_Back" class="btn btn-primary" asp-action="Index">
+                        <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <table id="table_Head">
+        <thead>
+            <tr>
+                <th>
+                    Customer Details
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="table_Body">
+        <tbody>
+            <form method="post" asp-action="Create">
+            <tr>
+                <td>
+                    <label asp-for="Id" class="control-label"></label>
+                    <br />
+                    <b>XXXX</b>
+                </td>
+                <td>
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </td>
+                <td>
+                    <label asp-for="Province" class="control-label"></label>
+                    <select asp-for="Province" class="form-control">
+                        <option value="Eastern Cape">Eastern Cape</option>
+                        <option value="Free State">Free State</option>
+                        <option value="Gauteng">Gauteng</option>
+                        <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                        <option value="Limpopo">Limpopo</option>
+                        <option value="Mpumalanga">Mpumalanga</option>
+                        <option value="Northern Cape">Northern Cape</option>
+                        <option value="North West">North West</option>
+                        <option value="Western Cape">Western Cape</option>
+                    </select>
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </td>
+                <td>
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr style="background-color: #36393E;">
+                <td></td>
+                <td style="text-align: right;">
+                    <button style="width: 30%;" type="submit" class="form_button btn btn-success">
+                        <i class="bi bi-plus-circle"></i> &nbsp; Add Customer
+                    </button>
+                </td>
+            </tr>
+            </form>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    #nav_Customers {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+    #div_Create {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+        #div_Create #btn_Back {
+            vertical-align: top !important;
+            float: left;
+            margin: 1%;
+            padding: 1% !important;
+            font-weight: bold;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 16.6% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 1%;
+        }
+
+    #table_Body {
+        width: 100%;
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+    }
+
+        #table_Body td {
+            width: 16.6% !important;
+            padding: 1%;
+        }
+
+        #table_Body label {
+            font-weight: bold;
+        }
+
+        #table_Body input {
+            width: 100%;
+        }
+
+        #table_Body tr {
+            background-color: #282B30;
+        }
+</style>

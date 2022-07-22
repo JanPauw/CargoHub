@@ -1,58 +1,40 @@
 ﻿@model CargoHubWeb.Models.Employee
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "View";
 }
 
+<h1>View</h1>
 
-<form id="form_Create" asp-action="Create">
-    <div class="p-3 mt-4" style="margin: 5%;">
-        <div class="row pb-2 text-center">
-            <h2 class="text-primary">Add Employee</h2>
-        </div>
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div>
-            <label hidden asp-for="Password" class="control-label"></label>
-            <input hidden asp-for="Password" class="form-control" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Role" class="control-label"></label>
-            <select class="form-control" asp-for="Role">
-                <option value="Admin">Admin</option>
-                <option value="Manager">Manager</option>
-                <option value="Driver">Driver</option>
-                <option value="Service Manager">Service Manager</option>
-                <option value="Timesheet Manager">Timesheet Manager</option>
-                <option value="Trip/Usage Manager">Trip/Usage Manager</option>
-            </select>
-            <span asp-validation-for="Role" class="text-danger"></span>
-        </div>
-        <br />
-        <div class="text-center">
-            <input style="width: 45%" type="submit" value="Create" class="btn btn-primary" />
-            <a style="width: 45%" asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </div>
+<h4>Employee</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label hidden asp-for="Password" class="control-label"></label>
+                <input hidden asp-for="Password" class="form-control" />
+                <span hidden asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" />
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
-<style>
-    #nav_Employees {
-        color: #fff;
-        background-color: #7289DA;
-    }
-
-    #form_Create {
-        width: 40%;
-        margin: auto;
-        margin-top: 15%;
-        border-radius: 30px;
-        box-shadow: 0px 0px 49px 5px rgba(0,0,0,0.5);
-        background-color: #303030;
-    }
-</style>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 

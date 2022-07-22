@@ -1,28 +1,30 @@
-﻿@model IEnumerable<CargoHubWeb.Models.Employee>
-@using CargoHubWeb.Data;
+﻿@model IEnumerable<CargoHubWeb.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
-    Encrypt enc = new Encrypt();
 }
+
 <div style="height: 2vh;">@*Spacer*@</div>
 
-<div id="div_Employees">
+<div id="div_Customers">
     <div id="div_Top">
-        <h1>Employees</h1>
+        <h1>Customers</h1>
         <form id="form_Search" method="get" asp-action="Index">
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 60%;">
-                        <a id="btn_AddEmployee" class="btn btn-primary" asp-action="Create">
-                            <i class="bi bi-person-plus-fill"></i> &nbsp; Add Employee
+                        <a id="btn_AddCustomer" class="btn btn-primary" asp-action="Create">
+                            <i class="bi bi-person-plus-fill"></i> &nbsp; Add Customer
                         </a>
                     </td>
                     <td>
                         <select class="form-control" id="SearchOption" name="SearchOption">
-                            <option value="Number">Employee Number</option>
+                            <option value="Id">Customer ID</option>
                             <option value="Name">Name</option>
-                            <option value="Role">Role</option>
+                            <option value="Address">Address</option>
+                            <option value="Province">Province</option>
+                            <option value="Email">Email</option>
+                            <option value="Phone">Phone</option>
                         </select>
                     </td>
                     <td>
@@ -44,19 +46,19 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Number)
+                        @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Role)
+                        @Html.DisplayNameFor(model => model.Province)
                     </th>
                     <th>
-                        Registered
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
                     </th>
                     <th>
-
+                        &nbsp;
                     </th>
                 </tr>
             </thead>
@@ -65,72 +67,40 @@
     <div id="div_Bottom">
         <table id="table_Body">
             <tbody>
-                @foreach (var item in Model.Where(x => x.Role != "Disabled"))
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Number)
+                            @Html.DisplayFor(modelItem => item.Id)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Role)
+                            @Html.DisplayFor(modelItem => item.Province)
                         </td>
-                        <td style="font-weight: bold;">
-                            @if (item.Password != enc.EncryptString("???"))
-                            {
-                                <span style="color: #7289DA;">YES</span>
-                            }
-                            else
-                            {
-                                <span style="color: #DB133C;">NO</span>
-                            }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
                         </td>
-                        <td style="padding: 0 !important; text-align: left;">
-                            <span>
-                                <form method="post" asp-action="Index">
-                                    @Html.Hidden("EmpNumber", @item.Number)
-                                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
-                                        <i class="bi bi-info-circle"></i> &nbsp; Details
-                                    </a> &nbsp;
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bi bi-slash-circle"></i> &nbsp; Disable
-                                    </button>
-                                </form>
-                            </span>
+                        <td style="padding: 0 !important; text-align: center;">
+                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-info-circle"></i> &nbsp; Details
+                            </a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    <br />
-    <div id="div_Disabled_Employees">
-        <table>
-            <tr>
-                <th>
-                    Disabled Employees
-                </th>
-                <th>
-                    <a style="float: right; margin-right: 3%;" class="btn btn-primary" asp-controller="Employees" asp-action="Disabled">
-                        View &nbsp; <i class="bi bi-arrow-right-circle"></i>
-                    </a>
-                </th>
-            </tr>
-        </table>
-    </div>
-
 </div>
 
-
 <style>
-    #nav_Employees {
+    #nav_Customers {
         color: #fff;
         background-color: #7289DA;
     }
 
-    #div_Employees {
+    #div_Customers {
         width: 75% !important;
         height: 100%;
         margin: auto;
@@ -139,7 +109,7 @@
     #div_Top {
     }
 
-        #div_Top #btn_AddEmployee {
+        #div_Top #btn_AddCustomer {
             vertical-align: top !important;
             padding: 1% !important;
             margin: 1% !important;
@@ -165,7 +135,7 @@
     }
 
         #table_Head th {
-            width: 20% !important;
+            width: 14% !important;
             color: #fff;
             background-color: #7289DA;
             padding: 1%;
@@ -184,7 +154,7 @@
     }
 
         #table_Body td {
-            width: 20% !important;
+            width: 14% !important;
             padding: 1%;
         }
 
@@ -194,20 +164,5 @@
 
         #table_Body tr:nth-child(odd) {
             background-color: #36393E;
-        }
-
-    #div_Disabled_Employees {
-        border-radius: 15px;
-        overflow: hidden;
-        border: solid 2px #DB133C;
-    }
-
-        #div_Disabled_Employees table {
-            width: 100%;
-        }
-
-        #div_Disabled_Employees th {
-            color: #fff;
-            padding: 1%;
         }
 </style>

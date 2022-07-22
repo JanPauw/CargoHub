@@ -49,9 +49,13 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelModel => Model.Number)
+                        <input hidden asp-for="Number" />
+                        <input hidden asp-for="Password" />
                     </td>
                     <td>
                         @Html.TextBoxFor(modelModel => Model.Name, new {@class="form-control"})
+                        <input hidden asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </td>
                     <td>
                         <select class="form-control" asp-for="Role">
@@ -62,6 +66,7 @@
                             <option value="Timesheet Manager">Timesheet Manager</option>
                             <option value="Trip/Usage Manager">Trip/Usage Manager</option>
                         </select>
+                        <span asp-validation-for="Role" class="text-danger"></span>
                     </td>
                     <td style="font-weight: bold;">
                         @if (Model.Password != enc.EncryptString("???"))

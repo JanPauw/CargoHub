@@ -11,5 +11,6 @@ namespace CargoHubWeb.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }

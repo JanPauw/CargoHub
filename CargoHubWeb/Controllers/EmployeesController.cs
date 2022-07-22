@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CargoHubWeb.Data;
 using CargoHubWeb.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Globalization;
 
 namespace CargoHubWeb.Controllers
 {
@@ -101,13 +103,11 @@ namespace CargoHubWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string? Name, string? Role)
+        public async Task<IActionResult> Create([Bind("Number,Password,Name,Role")] Employee obj)
         {
             Encrypt enc = new Encrypt();
-            Employee obj = new Employee();
-            obj.Name = Name;
-            obj.Role = Role;
-            obj.Password = enc.EncryptString("???");
+            string EncryptedPassword = enc.EncryptString("???");
+            ModelState.SetModelValue("Password", new ValueProviderResult("" + EncryptedPassword, CultureInfo.InvariantCulture));
 
             if (ModelState.IsValid)
             {
@@ -139,27 +139,27 @@ namespace CargoHubWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? Number, string? Name, string? Role)
+        public async Task<IActionResult> Edit(int id, [Bind("Number,Password,Name,Role")] Employee employee)
         {
-            if (Number == null)
+            if (id != employee.Number)
             {
                 return NotFound();
             }
 
-            var obj = _db.Employees.Find(Number);
+            var obj = _db.Employees.Find(id);
+            ModelState.SetModelValue("Password", new ValueProviderResult("" + obj.Password, CultureInfo.InvariantCulture));
+            _db.ChangeTracker.Clear();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    obj.Name = Name;
-                    obj.Role = Role;
-                    _db.Employees.Update(obj);
+                    _db.Update(employee);
                     await _db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(obj.Number))
+                    if (!EmployeeExists(employee.Number))
                     {
                         return NotFound();
                     }
@@ -170,7 +170,7 @@ namespace CargoHubWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(obj);
+            return View(employee);
         }
 
         // GET: Employees/Delete/5

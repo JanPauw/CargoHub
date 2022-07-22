@@ -1,0 +1,154 @@
+﻿@model CargoHubWeb.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div style="height: 2vh;">@*Spacer*@</div>
+<div id="div_Details">
+    <h1>Customer: @Model.Name</h1>
+    <form id="form_Back" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    <a id="btn_Back" class="btn btn-primary" asp-action="Index">
+                        <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <table id="table_Head">
+        <thead>
+            <tr>
+                <th>
+                    Customer Details
+                </th>
+                <th style="text-align: right;">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="form_button btn btn-secondary">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <table id="table_Body">
+        <tbody>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Id)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Id)
+                    @*<input asp-for="Id" readonly class="form-control" />*@
+                </td>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Name)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Name)
+                    @*<input asp-for="Name" readonly class="form-control" />*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Address)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Address)
+                    @*<input asp-for="Address" readonly class="form-control" />*@
+                </td>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Province)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Province)
+                    @*<input asp-for="Province" readonly class="form-control" />*@
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Email)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Email)
+                    @*<input asp-for="Email" readonly class="form-control" />*@
+                </td>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.PhoneNumber)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.PhoneNumber)
+                    @*<input asp-for="PhoneNumber" readonly class="form-control" />*@
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    #nav_Customers {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+    #div_Details {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+        #div_Details #btn_Back {
+            vertical-align: top !important;
+            float: left;
+            margin: 1%;
+            padding: 1% !important;
+            font-weight: bold;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 16.6% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 1%;
+        }
+
+    #table_Body {
+        width: 100%;
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+    }
+
+        #table_Body td {
+            width: 16.6% !important;
+            padding: 1%;
+        }
+
+        #table_Body input {
+            width: 100%;
+        }
+
+        #table_Body tr {
+            background-color: #282B30;
+        }
+
+    /*#table_Body tr:nth-child(odd) {
+                background-color: #36393E;
+            }*/
+</style>
