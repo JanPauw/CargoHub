@@ -10,87 +10,85 @@ using CargoHubWeb.Models;
 
 namespace CargoHubWeb.Controllers
 {
-    public class Employees1Controller : Controller
+    public class DepotsController : Controller
     {
-        private readonly Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public Employees1Controller(Data.ApplicationDbContext context)
+        public DepotsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Employees1
+        // GET: Depots
         public async Task<IActionResult> Index()
         {
-              return _context.Employees != null ? 
-                          View(await _context.Employees.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+              return View(await _context.Depots.ToListAsync());
         }
 
-        // GET: Employees1/Details/5
+        // GET: Depots/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Employees == null)
+            if (id == null || _context.Depots == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.Number == id);
-            if (employee == null)
+            var depot = await _context.Depots
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (depot == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(depot);
         }
 
-        // GET: Employees1/Create
+        // GET: Depots/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees1/Create
+        // POST: Depots/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Number,Password,Name,Role")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,Address,Province,Phone")] Depot depot)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(depot);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(depot);
         }
 
-        // GET: Employees1/Edit/5
+        // GET: Depots/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Employees == null)
+            if (id == null || _context.Depots == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var depot = await _context.Depots.FindAsync(id);
+            if (depot == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(depot);
         }
 
-        // POST: Employees1/Edit/5
+        // POST: Depots/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Number,Password,Name,Role")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Address,Province,Phone")] Depot depot)
         {
-            if (id != employee.Number)
+            if (id != depot.Id)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace CargoHubWeb.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(depot);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Number))
+                    if (!DepotExists(depot.Id))
                     {
                         return NotFound();
                     }
@@ -115,49 +113,49 @@ namespace CargoHubWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(depot);
         }
 
-        // GET: Employees1/Delete/5
+        // GET: Depots/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Employees == null)
+            if (id == null || _context.Depots == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.Number == id);
-            if (employee == null)
+            var depot = await _context.Depots
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (depot == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(depot);
         }
 
-        // POST: Employees1/Delete/5
+        // POST: Depots/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Employees == null)
+            if (_context.Depots == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Employees'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Depots'  is null.");
             }
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            var depot = await _context.Depots.FindAsync(id);
+            if (depot != null)
             {
-                _context.Employees.Remove(employee);
+                _context.Depots.Remove(depot);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool DepotExists(int id)
         {
-          return (_context.Employees?.Any(e => e.Number == id)).GetValueOrDefault();
+          return _context.Depots.Any(e => e.Id == id);
         }
     }
 }

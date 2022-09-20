@@ -15,9 +15,9 @@ namespace CargoHubWeb.Controllers
 {
     public class EmployeesController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly Data.ApplicationDbContext _db;
 
-        public EmployeesController(ApplicationDbContext context)
+        public EmployeesController(Data.ApplicationDbContext context)
         {
             _db = context;
         }

@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
     Encrypt enc = new Encrypt();
+    var sessionNumber = Accessor.HttpContext.Session.GetInt32("Number");
 }
 <div style="height: 2vh;">@*Spacer*@</div>
 
@@ -32,6 +33,8 @@
                         <button type="submit" class="btn btn-primary form-control">
                             <i class="bi bi-search"></i>
                         </button>
+                    </td>
+                    <td>
                         <a asp-action="Index" class="btn btn-warning form-control">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
@@ -94,9 +97,18 @@
                                     <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Number">
                                         <i class="bi bi-info-circle"></i> &nbsp; Details
                                     </a> &nbsp;
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="bi bi-slash-circle"></i> &nbsp; Disable
-                                    </button>
+                                    @if (sessionNumber != item.Number)
+                                    {
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="bi bi-slash-circle"></i> &nbsp; Disable
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button disabled class="btn btn-dark">
+                                            <i class="bi bi-slash-circle"></i> &nbsp; Disable
+                                        </button>
+                                    }
                                 </form>
                             </span>
                         </td>

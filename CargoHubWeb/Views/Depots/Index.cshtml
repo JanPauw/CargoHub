@@ -1,0 +1,172 @@
+﻿@model IEnumerable<CargoHubWeb.Models.Depot>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div style="height: 2vh;">@*Spacer*@</div>
+
+<div id="div_Depots">
+    <div id="div_Top">
+        <h1>Depots</h1>
+        <form id="form_Search" method="get" asp-action="Index">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 60%;">
+                        <a id="btn_AddDepot" class="btn btn-primary" asp-action="Create">
+                            <i class="bi bi-person-plus-fill"></i> &nbsp; Add Depot
+                        </a>
+                    </td>
+                    <td>
+                        <select class="form-control" id="SearchOption" name="SearchOption">
+                            <option value="Address">Address</option>
+                            <option value="Province">Province</option>
+                            <option value="Phone">Phone</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control" id="SearchInput" name="SearchInput" placeholder="Search..." />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary form-control">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <a asp-action="Index" class="btn btn-warning form-control">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <table id="table_Head">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Province)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="div_Bottom">
+        <table id="table_Body">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @if (item.Address.Length > 21)
+                            {
+                                @(item.Address.Substring(0, 22) + "...")
+                            }
+                            else
+                            {
+                                @item.Address
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Province)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td style="padding: 0 !important; text-align: center;">
+                            <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-info-circle"></i> &nbsp; Details
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    #nav_Depots {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #div_Depots {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+    #div_Top {
+    }
+
+        #div_Top #btn_AddDepot {
+            vertical-align: top !important;
+            padding: 1% !important;
+            margin: 1% !important;
+            font-weight: bold;
+        }
+
+    #form_Search {
+        width: 100%;
+    }
+
+        #form_Search .form-control {
+        }
+
+        #form_Search button, #form_Search a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 20% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 1%;
+        }
+
+    #div_Bottom {
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+        max-height: 55vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    #table_Body {
+        width: 100%;
+    }
+
+        #table_Body td {
+            width: 20% !important;
+            padding: 1%;
+        }
+
+        #table_Body tr:nth-child(even) {
+            background-color: #282B30;
+        }
+
+        #table_Body tr:nth-child(odd) {
+            background-color: #36393E;
+        }
+</style>

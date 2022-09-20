@@ -43,13 +43,11 @@
                     <b>@Html.DisplayNameFor(modelModel => Model.Id)</b>
                     <br />
                     @Html.DisplayFor(modelModel => Model.Id)
-                    @*<input asp-for="Id" readonly class="form-control" />*@
                 </td>
                 <td>
                     <b>@Html.DisplayNameFor(modelModel => Model.Name)</b>
                     <br />
                     @Html.DisplayFor(modelModel => Model.Name)
-                    @*<input asp-for="Name" readonly class="form-control" />*@
                 </td>
             </tr>
             <tr>
@@ -57,27 +55,25 @@
                     <b>@Html.DisplayNameFor(modelModel => Model.Address)</b>
                     <br />
                     @Html.DisplayFor(modelModel => Model.Address)
-                    @*<input asp-for="Address" readonly class="form-control" />*@
                 </td>
                 <td>
                     <b>@Html.DisplayNameFor(modelModel => Model.Province)</b>
                     <br />
                     @Html.DisplayFor(modelModel => Model.Province)
-                    @*<input asp-for="Province" readonly class="form-control" />*@
                 </td>
             </tr>
             <tr>
                 <td>
                     <b>@Html.DisplayNameFor(modelModel => Model.Email)</b>
                     <br />
-                    @Html.DisplayFor(modelModel => Model.Email)
-                    @*<input asp-for="Email" readonly class="form-control" />*@
+                    <a href="mailto:@Html.DisplayFor(modelModel => Model.Email)">
+                        @Html.DisplayFor(modelModel => Model.Email)
+                    </a>
                 </td>
                 <td>
                     <b>@Html.DisplayNameFor(modelModel => Model.PhoneNumber)</b>
                     <br />
                     @Html.DisplayFor(modelModel => Model.PhoneNumber)
-                    @*<input asp-for="PhoneNumber" readonly class="form-control" />*@
                 </td>
             </tr>
         </tbody>
@@ -147,8 +143,4 @@
         #table_Body tr {
             background-color: #282B30;
         }
-
-    /*#table_Body tr:nth-child(odd) {
-                background-color: #36393E;
-            }*/
 </style>

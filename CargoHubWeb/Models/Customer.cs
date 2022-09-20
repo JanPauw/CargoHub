@@ -1,19 +1,22 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CargoHubWeb.Models
 {
-    public class Customer
+    public partial class Customer
     {
-        [Key]
-        [DisplayName("Customer ID")]
+        public Customer()
+        {
+            Orders = new HashSet<Order>();
+        }
+
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string Province { get; set; }
-        public string Email { get; set; }
-        [DisplayName("Phone Number")]
-        public string PhoneNumber { get; set; }
+        public string Name { get; set; } = null!;
+        public string Address { get; set; } = null!;
+        public string Province { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

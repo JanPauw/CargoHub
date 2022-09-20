@@ -12,9 +12,9 @@ namespace CargoHubWeb.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly Data.ApplicationDbContext _db;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(Data.ApplicationDbContext context)
         {
             _db = context;
         }

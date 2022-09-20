@@ -1,14 +1,12 @@
-﻿@using CargoHubWeb.Data
-@model CargoHubWeb.Models.Employee
+﻿@model CargoHubWeb.Models.Depot
 
 @{
-    ViewData["Title"] = "View";
-    Encrypt enc = new Encrypt();
+    ViewData["Title"] = "Details";
 }
 
 <div style="height: 2vh;">@*Spacer*@</div>
-<div id="div_Create">
-    <h1>Add Employee</h1>
+<div id="div_Details">
+    <h1>Depot ID: @Model.Id</h1>
     <form id="form_Back" method="get" asp-action="Index">
         <table style="width: 100%;">
             <tr>
@@ -28,55 +26,48 @@
         <thead>
             <tr>
                 <th>
-                    Employee Details
+                    Depot Details
                 </th>
-                <th></th>
+                <th style="text-align: right;">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="form_button btn btn-secondary">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                </th>
             </tr>
         </thead>
     </table>
     <table id="table_Body">
         <tbody>
-            <form method="post" asp-action="Create">
             <tr>
                 <td>
-                        @*Hidden Password Field*@
-                    <label hidden asp-for="Password" class="control-label"></label>
-                    <input hidden asp-for="Password" class="form-control" value="@enc.EncryptString("???")"/>
-                    <span hidden asp-validation-for="Password" class="text-danger"></span>
-                        @*Name Field*@
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Id)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Id)
                 </td>
                 <td>
-                        @*Role Field*@
-                    <label asp-for="Role" class="control-label"></label>
-                    <select class="form-control" asp-for="Role">
-                        <option value="Admin">Admin</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Driver">Driver</option>
-                        <option value="Service Manager">Service Manager</option>
-                        <option value="Timesheet Manager">Timesheet Manager</option>
-                        <option value="Trip/Usage Manager">Trip/Usage Manager</option>
-                    </select>
-                    <span asp-validation-for="Role" class="text-danger"></span>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Address)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Address)
                 </td>
             </tr>
-            <tr style="background-color: #36393E;">
-                <td></td>
-                <td style="text-align: right;">
-                    <button style="width: 30%;" type="submit" class="form_button btn btn-success">
-                        <i class="bi bi-plus-circle"></i> &nbsp; Add Employee
-                    </button>
+            <tr>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Province)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Province)
+                </td>
+                <td>
+                    <b>@Html.DisplayNameFor(modelModel => Model.Phone)</b>
+                    <br />
+                    @Html.DisplayFor(modelModel => Model.Phone)
                 </td>
             </tr>
-            </form>
         </tbody>
     </table>
 </div>
 
 <style>
-    #nav_Employees {
+    #nav_Depots {
         color: #fff;
         background-color: #7289DA;
     }
@@ -93,13 +84,13 @@
             height: fit-content !important;
         }
 
-    #div_Create {
+    #div_Details {
         width: 75% !important;
         height: 100%;
         margin: auto;
     }
 
-        #div_Create #btn_Back {
+        #div_Details #btn_Back {
             vertical-align: top !important;
             float: left;
             margin: 1%;
@@ -129,10 +120,6 @@
         #table_Body td {
             width: 16.6% !important;
             padding: 1%;
-        }
-
-        #table_Body label {
-            font-weight: bold;
         }
 
         #table_Body input {
