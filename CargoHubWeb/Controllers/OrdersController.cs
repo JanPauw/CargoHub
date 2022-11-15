@@ -220,6 +220,10 @@ namespace CargoHubWeb.Controllers
             ViewData["EmployeeNum"] = new SelectList(_context.Employees, "Number", "Number", order.EmployeeNum);
             ViewData["FromDepot"] = new SelectList(_context.Depots, "Id", "Id", order.FromDepot);
             ViewData["ToDepot"] = new SelectList(_context.Depots, "Id", "Id", order.ToDepot);
+
+            ViewData["Customers"] = _context.Customers.ToList();
+            ViewData["Employees"] = _context.Employees.ToList();
+            ViewData["Depots"] = _context.Depots.ToList();
             return View(order);
         }
 
@@ -230,6 +234,10 @@ namespace CargoHubWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Number,Description,Weight,ToDepot,FromDepot,CustomerId,Date,Status,EmployeeNum")] Order order)
         {
+            ViewData["Customers"] = _context.Customers.ToList();
+            ViewData["Employees"] = _context.Employees.ToList();
+            ViewData["Depots"] = _context.Depots.ToList();
+
             if (id != order.Number)
             {
                 return NotFound();
