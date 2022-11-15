@@ -1,4 +1,4 @@
-# CarhoHub
+# CarhoHub - Visit current version demo [here](https://cargohubweb.azurewebsites.net)
 
 A web app developed for logistics businesses to help keep track of their cargo fleet, customers, and employees. 
 
