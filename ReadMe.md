@@ -5,7 +5,7 @@ A web app developed for logistics businesses to help keep track of their cargo f
 Originally the web app was created with ASP.NET Framework, but as I learned more efficient and modern languages and solutions, I am actively updating the system to ASP.NET Core 6. 
 This web app also uses Entity Framework Core along with dependency injection, but the SQL Database used to store all the data is self-hosted by me, using Docker.
 
-[Visit current version](https://cargohubweb.azurewebsites.net)
+[Current Version Live Demo](https://cargohubweb.azurewebsites.net)
 
 ## Current Features
 - Admin can add Employees to register on the system with their own unique employee number.
