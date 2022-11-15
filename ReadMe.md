@@ -7,9 +7,3 @@ CargoHub is a tool used to track and keep record of deliveries, vehicles, employ
 <b>
   View Demo <a href="https://cargohubweb.azurewebsites.net">Here</a>
 </b>
-
-<h2>Screenshots</h2>
-<h3>Login</h3>
-<img src="https://files.attilan.co.za/api/public/dl/xG6PWJpb" style="width: 50%;"/>
-<h3>Register</h3>
-<img src="https://files.attilan.co.za/api/public/dl/ZxXOCkfF" style="width: 50%;"/>
