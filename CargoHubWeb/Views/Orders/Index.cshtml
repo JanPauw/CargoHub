@@ -1,0 +1,278 @@
+﻿@model IEnumerable<CargoHubWeb.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div style="height: 2vh;">@*Spacer*@</div>
+
+<div id="div_Orders">
+    <h1 id="PageTitle">Orders</h1>
+    <form id="form_Search" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    <a id="btn_AddEmployee" class="btn btn-primary" asp-action="Create">
+                        <i class="bi bi-box-seam"></i> &nbsp; New Order
+                    </a>
+                </td>
+                <td>
+                    <select class="form-control" id="SearchOption" name="SearchOption">
+                        <option value="Number">Employee Number</option>
+                        <option value="Name">Name</option>
+                        <option value="Role">Role</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" id="SearchInput" name="SearchInput" placeholder="Search..." />
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary form-control">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </td>
+                <td>
+                    <a asp-action="Index" class="btn btn-warning form-control">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+
+    <div class="row">
+        <div class="column" id="Orders_New">
+            <div id="div_Top">
+                <table id="table_Head">
+                    <thead>
+                        <tr>
+                            <th class="bg-danger">
+                                New Orders
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="div_Bottom">
+                <table id="table_Body">
+                    <tbody>
+                        @foreach (var item in Model.Where(x => x.Status == "new"))
+                        {
+                            <tr>
+                                <td class="OrderItem">
+                                    <div id="OrderCard">
+                                        <div style="float: left;">
+                                            <h5>@item.Number</h5>
+                                            <h6>@item.Date.ToShortDateString()</h6>
+                                        </div>
+                                        <a asp-action="Details" asp-route-id="@item.Number" style="font-size: 50px; float: right; line-height: 50px;">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="column" id="Orders_Assigned">
+            <div id="div_Top">
+                <table id="table_Head">
+                    <thead>
+                        <tr>
+                            <th class="bg-warning">
+                                Assigned Orders
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="div_Bottom">
+                <table id="table_Body">
+                    <tbody>
+                        @foreach (var item in Model.Where(x => x.Status == "new"))
+                        {
+                            <tr>
+                                <td class="OrderItem">
+                                    <div id="OrderCard">
+                                        <div style="float: left;">
+                                            <h5>@item.Number</h5>
+                                            <h6>@item.Date.ToShortDateString()</h6>
+                                        </div>
+                                        <a asp-action="Details" asp-route-id="@item.Number" style="font-size: 50px; float: right; line-height: 50px;">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="column" id="Orders_Complete">
+            <div id="div_Top">
+                <table id="table_Head">
+                    <thead>
+                        <tr>
+                            <th class="bg-success">
+                                Complete Orders
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="div_Bottom">
+                <table id="table_Body">
+                    <tbody>
+                        @foreach (var item in Model.Where(x => x.Status == "new"))
+                        {
+                            <tr>
+                                <td class="OrderItem">
+                                    <div id="OrderCard">
+                                        <div style="float: left;">
+                                            <h5>@item.Number</h5>
+                                            <h6>@item.Date.ToShortDateString()</h6>
+                                        </div>
+                                        <a asp-action="Details" asp-route-id="@item.Number" style="font-size: 50px; float: right; line-height: 50px;">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #nav_Orders {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #div_Orders {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+    #div_Top {
+    }
+
+        #div_Top #btn_AddEmployee {
+            vertical-align: top !important;
+            padding: 1% !important;
+            margin: 1% !important;
+            font-weight: bold;
+        }
+
+    #form_Search {
+        width: 100%;
+    }
+
+        #form_Search .form-control {
+        }
+
+        #form_Search button, #form_Search a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 20% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 3%;
+            text-align: center;
+        }
+
+    #div_Bottom {
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+        max-height: 65vh;
+        min-height: 65vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #36393E;
+    }
+
+    #table_Body {
+        width: 100%;
+    }
+
+        #table_Body td {
+            width: 20% !important;
+            padding: 1%;
+        }
+
+        #table_Body tr:nth-child(even) {
+            background-color: #282B30;
+        }
+
+        #table_Body tr:nth-child(odd) {
+            background-color: #36393E;
+        }
+
+    #div_Disabled_Employees {
+        border-radius: 15px;
+        overflow: hidden;
+        border: solid 2px #DB133C;
+    }
+
+        #div_Disabled_Employees table {
+            width: 100%;
+        }
+
+        #div_Disabled_Employees th {
+            color: #fff;
+            padding: 1%;
+        }
+
+    .OrderItem {
+        background-color: #36393E;
+    }
+
+        .OrderItem #OrderCard {
+            width: 100%;
+            background-color: #282B30;
+            height: 75px;
+            border-radius: 20px;
+            padding: 3%;
+        }
+
+            .OrderItem #OrderCard:hover {
+                box-shadow: 1px -1px 14px 1px rgba(114,137,218,0.75);
+                -webkit-box-shadow: 1px -1px 14px 1px rgba(114,137,218,0.75);
+                -moz-box-shadow: 1px -1px 14px 1px rgba(114,137,218,0.75);
+            }
+
+        .OrderItem h5, .OrderItem h6 {
+            width: 50% !important
+        }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 1%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+

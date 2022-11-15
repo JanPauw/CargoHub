@@ -1,0 +1,184 @@
+﻿@model CargoHubWeb.Models.Order
+
+@{
+    ViewData["Title"] = "Create";
+    List<Customer> customers = ViewBag.Customers;
+    List<Employee> employees = ViewBag.Employees;
+}
+
+<div style="height: 2vh;">@*Spacer*@</div>
+<div id="div_Create">
+    <h1>Add Order</h1>
+    <form id="form_Back" method="get" asp-action="Index">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 60%;">
+                    <a id="btn_Back" class="btn btn-primary" asp-action="Index">
+                        <i class="bi bi-arrow-left-circle"></i> &nbsp; Back
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+    <table id="table_Head">
+        <thead>
+            <tr>
+                <th>
+                    Add an Order
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+    <table id="table_Body">
+        <tbody>
+            <form method="post" asp-action="Create">
+            <tr>
+                <td>
+                    <label asp-for="Number" class="control-label"></label>
+                    <br />
+                    <b>XX00000000</b>
+                </td>
+                <td>
+                    <label class="control-label">Customer</label>
+                    <select asp-for="CustomerId" class="form-control">
+                            @foreach (var item in customers)
+                            {
+                            <option value="@item.Id">@item.Name</option>
+                            }
+                    </select>
+                    <span asp-validation-for="CustomerId" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </td>
+                <td>
+                    <label asp-for="Weight" class="control-label"></label>
+                    <input asp-for="Weight" class="form-control" />
+                    <span asp-validation-for="Weight" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label">Origin Depot</label>
+                    <select asp-for="FromDepot" class="form-control" asp-items="ViewBag.FromDepot"></select>
+                    <span asp-validation-for="FromDepot" class="text-danger"></span>
+                </td>
+                <td>
+                    <label class="control-label">Destination Depot</label>
+                    <select asp-for="ToDepot" class="form-control" asp-items="ViewBag.ToDepot"></select>
+                    <span asp-validation-for="ToDepot" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label">Employee Driver</label>
+                    <select asp-for="EmployeeNum" class="form-control">
+                        <option value="-1">Un-Assigned</option>
+                            @foreach (var item in employees.Where(x => x.Role == "Driver"))
+                            {
+                            <option value="@item.Number">@item.Name</option>
+                            }
+                    </select>
+                    <span asp-validation-for="EmployeeNum" class="text-danger"></span>
+                </td>
+                <td>
+                    <label class="control-label">Status</label>
+                    <select asp-for="Status" class="form-control">
+                        <option value="new">New</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                    <span asp-validation-for="ToDepot" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr style="background-color: #36393E;">
+                <td></td>
+                <td style="text-align: right;">
+                    <button style="width: 30%;" type="submit" class="form_button btn btn-success">
+                        <i class="bi bi-plus-circle"></i> &nbsp; Add Order
+                    </button>
+                </td>
+            </tr>
+            </form>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    #nav_Orders {
+        color: #fff;
+        background-color: #7289DA;
+    }
+
+    #form_Back {
+        width: 100%;
+    }
+
+        #form_Back .form-control {
+        }
+
+        #form_Back button, #form_Back a {
+            width: fit-content !important;
+            height: fit-content !important;
+        }
+
+    #div_Create {
+        width: 75% !important;
+        height: 100%;
+        margin: auto;
+    }
+
+        #div_Create #btn_Back {
+            vertical-align: top !important;
+            float: left;
+            margin: 1%;
+            padding: 1% !important;
+            font-weight: bold;
+        }
+
+    #table_Head {
+        width: 100%;
+        border-radius: 15px 15px 0px 0px;
+        overflow: hidden;
+    }
+
+        #table_Head th {
+            width: 16.6% !important;
+            color: #fff;
+            background-color: #7289DA;
+            padding: 1%;
+        }
+
+    #table_Body {
+        width: 100%;
+        border-radius: 0px 0px 15px 15px;
+        overflow: hidden;
+    }
+
+        #table_Body td {
+            width: 16.6% !important;
+            padding: 1%;
+            vertical-align: top;
+        }
+
+        #table_Body label {
+            font-weight: bold;
+        }
+
+        #table_Body input {
+            width: 100%;
+        }
+
+        #table_Body tr {
+            background-color: #282B30;
+        }
+</style>
