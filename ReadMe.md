@@ -1,4 +1,4 @@
-# CarhoHub
+# CargoHub
 
 A web app developed for logistics businesses to help keep track of their cargo fleet, customers, and employees. 
 
