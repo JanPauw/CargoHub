@@ -91,7 +91,7 @@
             <div id="div_Bottom">
                 <table id="table_Body">
                     <tbody>
-                        @foreach (var item in Model.Where(x => x.Status == "new"))
+                        @foreach (var item in Model.Where(x => x.Status == "assigned"))
                         {
                             <tr>
                                 <td class="OrderItem">
@@ -126,7 +126,7 @@
             <div id="div_Bottom">
                 <table id="table_Body">
                     <tbody>
-                        @foreach (var item in Model.Where(x => x.Status == "new"))
+                        @foreach (var item in Model.Where(x => x.Status == "complete"))
                         {
                             <tr>
                                 <td class="OrderItem">

@@ -43,6 +43,7 @@
                     <label asp-for="Number" class="control-label"></label>
                     <br />
                     <b>@Model.Number</b>
+                    <input value="@Model.Number" hidden />
                 </td>
                 <td>
                     <label class="control-label">Customer</label>
@@ -77,7 +78,8 @@
                                 {
                                 <option value="@item.Id" selected>@item.Address</option>
                                 }
-                                else {
+                                else
+                                {
                                 <option value="@item.Id">@item.Address</option>
                                 }
                             }

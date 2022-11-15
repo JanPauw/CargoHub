@@ -232,42 +232,120 @@ namespace CargoHubWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Number,Description,Weight,ToDepot,FromDepot,CustomerId,Date,Status,EmployeeNum")] Order order)
+        public async Task<IActionResult> Edit(
+            string id, string Description, int Weight,
+            int ToDepot, int FromDepot, int CustomerId,
+            string Status, int EmployeeNum
+            )
         {
             ViewData["Customers"] = _context.Customers.ToList();
             ViewData["Employees"] = _context.Employees.ToList();
             ViewData["Depots"] = _context.Depots.ToList();
 
-            if (id != order.Number)
+            //Check if Order Exists
+            Order order = _context.Orders.Find(id);
+
+            if (order == null)
             {
-                return NotFound();
+                return View();
             }
 
-            if (ModelState.IsValid)
+            #region Input Validation
+            //Description
+            if (!string.IsNullOrWhiteSpace(Description))
+            {
+                order.Description = Description;
+            }
+            else
+            {
+                TempData["error"] = "Description cannot be empty!";
+                return View();
+            }
+
+            //Weight
+            if (Weight > 0)
             {
                 try
                 {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
+                    order.Weight = (int)Weight;
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception)
                 {
-                    if (!OrderExists(order.Number))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    TempData["error"] = "Weight can only be a Number!";
+                    return View();
                 }
-                return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                TempData["error"] = "Weight can not be less than 0!";
+                return View();
+            }
+
+            //To Depot
+            if (ToDepot != null && _context.Depots.Find(ToDepot) != null)
+            {
+                order.ToDepot = (int)ToDepot;
+            }
+            else
+            {
+                TempData["error"] = "Invalid Origin Depot Selected!";
+                return View();
+            }
+
+            //From Depot
+            if (FromDepot != null && _context.Depots.Find(FromDepot) != null)
+            {
+                order.FromDepot = (int)FromDepot;
+            }
+            else
+            {
+                TempData["error"] = "Invalid Destination Selected!";
+                return View();
+            }
+
+            //Customer ID
+            if (CustomerId != null && _context.Customers.Find(CustomerId) != null)
+            {
+                order.CustomerId = (int)CustomerId;
+            }
+            else
+            {
+                TempData["error"] = "Invalid Customer Selected!";
+                return View();
+            }
+
+            //Status
+            if (!string.IsNullOrWhiteSpace(Status))
+            {
+                order.Status = Status;
+            }
+            else
+            {
+                TempData["error"] = "Invalid Status Selected!";
+                return View();
+            }
+
+            //Employee Number
+            if (EmployeeNum != null && _context.Employees.Find(EmployeeNum) != null)
+            {
+                order.EmployeeNum = (int)EmployeeNum;
+            }
+            else
+            {
+                TempData["error"] = "Invalid Employee Selected!";
+                return View();
+            }
+            #endregion
+
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", order.CustomerId);
             ViewData["EmployeeNum"] = new SelectList(_context.Employees, "Number", "Number", order.EmployeeNum);
             ViewData["FromDepot"] = new SelectList(_context.Depots, "Id", "Id", order.FromDepot);
             ViewData["ToDepot"] = new SelectList(_context.Depots, "Id", "Id", order.ToDepot);
-            return View(order);
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", "Orders", new { id = id });
         }
 
         // GET: Orders/Delete/5
